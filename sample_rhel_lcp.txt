@@ -1,0 +1,66 @@
+TNS-TenableProducts-LCE_rhel_lceclient.lcp
+
+File Contents Below
+--------------------
+
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<options xmlns:xi="http://www.w3.org/2003/XInclude">
+
+    <!-- This policy is maintained by Tenable Network Security.
+         Please do not directly modify this policy.  It will be reverted when your LCE downloads updates.
+         If you wish to use this policy as a template, please:
+           1A. copy it and change the filename prefix from "TNS-TenableProducts", OR
+           1B. export it, and then import it under a new name,
+           2. modify your new file, and
+           3. assign the new file to Tenable LCE RHEL clients as desired.
+         Please see the Tenable LCE Client Guide for details on other valid policy keys and values not listed here.
+
+         This policy monitors Tenable application logs.
+    -->
+
+    <!-- LCE client log messages are written to a file named according to the date in
+         the directory specified below. -->
+    <log-directory>/opt/lce_client/</log-directory>
+
+    <!-- monitors process accounting and BSM auditing for process execution -->
+    <accounting-file>/var/account/pacct</accounting-file>
+    <audit-dir>/var/log/audit</audit-dir>
+
+    <tail-file>/var/log/messages</tail-file>
+    <tail-file>/var/log/secure</tail-file>
+    <tail-dir>/var/log/*.log</tail-dir>
+
+    <!-- LCE Query -->
+    <tail-dir>/opt/lce/admin/log/query/2*.log</tail-dir>
+
+    <!-- LCE -->
+    <tail-file>/opt/lce/daemons/plugins/pluginupdater.log</tail-file>
+
+    <!-- The following options specify files and directories that should be monitored
+         for changes. This includes files being added, moved, deleted, swapped, or
+         modified. These operations will trigger a log message being sent to LCE,
+         which includes the old and new MD5 checksums of the file, when applicable. -->
+    <monitor-file-changes>/etc/passwd</monitor-file-changes>
+
+    <!-- LCE -->
+    <monitor-file-changes>/opt/lce_client/lce_clientd</monitor-file-changes>
+    <monitor-directory-changes>/opt/lce/*</monitor-directory-changes>
+    <monitor-file-changes>/opt/lce/daemons/lced</monitor-file-changes>
+    <monitor-file-changes>/opt/lce/daemons/lce_queryd</monitor-file-changes>
+    <monitor-file-changes>/opt/lce/daemons/lce_report_proxyd</monitor-file-changes>
+    <monitor-file-changes>/opt/lce/daemons/lce_indexerd</monitor-file-changes>
+    <monitor-file-changes>/opt/lce/daemons/lce.conf</monitor-file-changes>
+
+    <!-- When the following options are enabled, changes to ownership and permissions
+         will be reported for the above monitored files and directories. -->
+    <report-ownership-changes>yes</report-ownership-changes>
+    <report-permissions-changes>yes</report-permissions-changes>
+
+    <!-- The next setting determines the frequency, in minutes, with which monitored
+         files and directories will be re-scanned for changes. -->
+    <modification-check-frequency>30</modification-check-frequency>
+
+    <scan-frequency>60</scan-frequency>
+    <heartbeat-frequency>300</heartbeat-frequency>
+    <statistics-frequency>60</statistics-frequency>
+    <compress-events>1</compress-events>
